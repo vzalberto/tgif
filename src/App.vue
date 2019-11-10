@@ -1,18 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TGIF :gifs=gifs.data />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TGIF from './components/TGIF.vue'
+import axios from 'axios'
+
+const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?api_key=KQzPKVUFZUIpii6iYFGNphMc7ujV6UcR&q=TGIF&rating=G&limit=5"
 
 export default {
   name: 'app',
+
+  data () {
+    return {
+      gifs : []
+    }
+  },
+
   components: {
-    HelloWorld
+    TGIF
+  },
+
+  beforeMount () {
+      axios
+        .get(GIPHY_URL)
+        .then(res => this.gifs = res.data)
   }
+
 }
 </script>
 
